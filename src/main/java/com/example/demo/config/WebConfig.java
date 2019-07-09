@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
 import com.example.demo.filter.TimeFilter;
+import com.example.demo.interceptor.AccessLimitInterceptor;
 import com.example.demo.interceptor.MyInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
@@ -22,6 +23,9 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     @Autowired
     private MyInterceptor myInterceptor; //注入自定义拦截器
 
+    @Autowired
+    private AccessLimitInterceptor accessLimitInterceptor;
+
     /**
      * 使拦截器起作用
      * @param registry
@@ -29,6 +33,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(myInterceptor);
+        registry.addInterceptor(accessLimitInterceptor);
     }
 
     /**
